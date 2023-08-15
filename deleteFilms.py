@@ -11,5 +11,11 @@ def delete_data():
     dbCursor.execute(f"DELETE FROM tblfilms WHERE filmID = {idField}")
     dbCon.commit()
     print(f"Record {idField} deleted from tblfilms. ")
+
 if __name__ == "__main__":
     delete_data()
+
+# Could potentially expand it more with:
+# Confirm with the user that they truly want to delete the specified record.
+# Provide a check to ensure the entered filmID is a valid integer.
+# Handle situations where the provided filmID might not exist in the database.
