@@ -15,7 +15,7 @@ def insert_data():
         except ValueError:
             print("Please enter a valid year")
 
-    ALLOWED_RATINGS = ("G", "PG", "R", "NC-17", "Not Rated")
+    ALLOWED_RATINGS = ("G", "PG", "R")
     filmRating = ""
     while filmRating not in ALLOWED_RATINGS:
         filmRating = input("Enter film rating (G: General audiences; PG: Parental guidance; R: Restricted): ")

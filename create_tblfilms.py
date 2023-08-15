@@ -1,3 +1,5 @@
+"""this file creates an SQLite table named tblfilms"""
+
 from connect import * #importing connect.py module 
 
 dbCursor.execute("""
