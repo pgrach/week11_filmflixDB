@@ -59,11 +59,22 @@ def view_films():
     
     return render_template('films.html', films=films)
 
+@app.route('/delete', methods=['GET', 'POST'])
+def delete_film():
+    if request.method == 'POST':
+        film_id = request.form['film_id']
 
-#     # Integrate your code to fetch all films from the database
-#     # For now, we'll use a placeholder list
-#     films = [("1", "Film1", "2000", "G", "120", "Action"), ("2", "Film2", "2005", "PG", "150", "Drama")]
-#     return render_template('films.html', films=films)
+# Get a new database connection and cursor
+        dbCon, dbCursor = get_db_connection()
+        dbCursor.execute("DELETE FROM tblfilms WHERE filmID = ?", 
+                         (film_id,))
+        dbCon.commit()
+        dbCon.close()
+
+        return redirect(url_for('index'))  # Redirect to the main page after adding
+    
+    return render_template('delete_film.html')
+
 
 # @app.route('/update', methods=['GET', 'POST'])
 # def update_select():
@@ -81,15 +92,6 @@ def view_films():
 #     # For now, we'll use placeholder details
 #     film_details = ("Film1", "2000", "G", "120", "Action")
 #     return render_template('update_film.html', film_details=film_details)
-
-# @app.route('/delete', methods=['GET', 'POST'])
-# def delete_film():
-#     if request.method == 'POST':
-#         film_id = request.form['film_id']
-#         # Here, integrate your deleteFilms code to delete the film from the database
-#         return redirect(url_for('view_films'))  # Redirect to the films page after deleting
-#     return render_template('delete_film.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
