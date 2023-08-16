@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Film Details</title>
+</head>
+<body>
+    <h2>Update Film Details</h2>
+    <form action="{{ url_for('update_film', film_id=film_details[0]) }}" method="post">
+        <label for="title">Film Title:</label>
+        <input type="text" name="title" value="{{ film_details[0] }}" required><br><br>
+        <label for="year">Year:</label>
+        <input type="number" name="year" value="{{ film_details[1] }}" required><br><br>
+        <label for="rating">Rating:</label>
+        <input type="text" name="rating" value="{{ film_details[2] }}" required><br><br>
+        <label for="duration">Duration:</label>
+        <input type="number" name="duration" value="{{ film_details[3] }}" required><br><br>
+        <label for="genre">Genre:</label>
+        <input type="text" name="genre" value="{{ film_details[4] }}" required><br><br>
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>
