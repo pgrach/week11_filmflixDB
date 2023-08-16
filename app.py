@@ -31,24 +31,24 @@ def index():
 # Update Films
 # View All Films
 
-# @app.route('/add', methods=['GET','POST'])
-# def add_film():
-#     if request.method == 'POST':
-#         filmTitle = request.form['title']
-#         filmYear = int(request.form['year'])
-#         filmRating = request.form['rating']
-#         filmDuration = int(request.form['duration'])
-#         filmGenre = request.form['genre']
-# # Get a new database connection and cursor
-#         dbCon, dbCursor = get_db_connection()
-#         dbCursor.execute("INSERT INTO tblfilms (title, yearReleased, rating, duration, genre) VALUES (?,?,?,?,?)", 
-#                          (filmTitle, filmYear, filmRating, filmDuration, filmGenre))
-#         dbCon.commit()
-#         dbCon.close()
+@app.route('/add', methods=['GET','POST'])
+def add_film():
+    if request.method == 'POST':
+        filmTitle = request.form['title']
+        filmYear = int(request.form['year'])
+        filmRating = request.form['rating']
+        filmDuration = int(request.form['duration'])
+        filmGenre = request.form['genre']
+# Get a new database connection and cursor
+        dbCon, dbCursor = get_db_connection()
+        dbCursor.execute("INSERT INTO tblfilms (title, yearReleased, rating, duration, genre) VALUES (?,?,?,?,?)", 
+                         (filmTitle, filmYear, filmRating, filmDuration, filmGenre))
+        dbCon.commit()
+        dbCon.close()
 
-#         return redirect(url_for('index'))  # Redirect to the main page after adding
-
-#     return render_template('add_film.html')
+        return redirect(url_for('index'))  # Redirect to the main page after adding
+    
+    return render_template('add_film.html')
 
 @app.route('/films')
 def view_films():
