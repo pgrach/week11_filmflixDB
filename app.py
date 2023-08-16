@@ -76,22 +76,38 @@ def delete_film():
     return render_template('delete_film.html')
 
 
-# @app.route('/update', methods=['GET', 'POST'])
-# def update_select():
-#     if request.method == 'POST':
-#         film_id = request.form['film_id']
-#         return redirect(url_for('update_film', film_id=film_id))
-#     return render_template('update_select.html')
+@app.route('/update', methods=['GET', 'POST'])
+def update_select():
+    if request.method == 'POST':
+        film_id = request.form['film_id']
+        return redirect(url_for('update_film', film_id=film_id))
+    return render_template('update_select.html')
 
-# @app.route('/update/<film_id>', methods=['GET', 'POST'])
-# def update_film(film_id):
-#     if request.method == 'POST':
-#         # Here, integrate your updateFilms code to update the film details in the database
-#         return redirect(url_for('view_films'))  # Redirect to the films page after updating
-#     # Fetch the current details of the film using film_id and pass them to the template
-#     # For now, we'll use placeholder details
-#     film_details = ("Film1", "2000", "G", "120", "Action")
-#     return render_template('update_film.html', film_details=film_details)
+@app.route('/update/<film_id>', methods=['GET', 'POST'])
+def update_film(film_id):
+    dbCon, dbCursor = get_db_connection()
+    if request.method == 'POST':
+        # Getting form data
+        title = request.form.get('title')
+        yearReleased = request.form.get('yearReleased')
+        rating = request.form.get('rating')
+        duration = request.form.get('duration')
+        genre = request.form.get('genre')
+
+        # Update database record
+        dbCursor.execute("UPDATE tblfilms SET title=?, yearReleased=?, rating=?, duration=?, genre=? WHERE filmID=?", 
+                         (title, yearReleased, rating, duration, genre, film_id))
+        dbCon.commit()
+        dbCon.close()
+
+        return redirect(url_for('view_films'))
+
+    # Fetch the current details of the film using film_id
+    dbCursor.execute("SELECT * FROM tblfilms WHERE filmID=?", (film_id,))
+    film_details = dbCursor.fetchone()
+    dbCon.close()
+
+    return render_template('update_film.html', film_details=film_details)
 
 if __name__ == '__main__':
     app.run(debug=True)
