@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report: Genre</title>
+</head>
+<body>
+    <h2>Report Films</h2>
+    <form action="/genre" method="post">
+        <label for="genre">Enter Genre you are looking for:</label>
+        <input type="text" name="genre" required><br><br>
+        <input type="submit" value="Search">
+    </form> 
+    
+<a href="{{ url_for('index') }}">Go BACK to MAIN MENU </a>
+</body>
+</html>

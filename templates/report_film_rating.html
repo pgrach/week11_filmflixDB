@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Films by Genre: {{ genre }}</title>
+</head>
+<body>
+    <h2>View All Films with Selected Genre {{ genre }}</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Duration</th>
+            <th>Genre</th>
+        </tr>
+        {% for film in films %}
+        <tr>
+            <td>{{ film[0] }}</td>
+            <td>{{ film[1] }}</td>
+            <td>{{ film[2] }}</td>
+            <td>{{ film[3] }}</td>
+            <td>{{ film[4] }}</td>
+            <td>{{ film[5] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <a href="{{ url_for('index') }}">Go BACK to MAIN MENU </a>
+
+</body>
+</html>

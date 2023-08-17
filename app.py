@@ -109,5 +109,53 @@ def update_film(film_id):
 
     return render_template('update_film.html', film_details=film_details)
 
+
+@app.route('/genre', methods=['GET', 'POST'])
+def report_select_genre():
+    if request.method == 'POST':
+        genre = request.form['genre'].title()
+
+        dbCon, dbCursor = get_db_connection() # Using the get_db_connection() function set up above to connect to  DB
+        # Fetch the current details of the film using genre
+        dbCursor.execute("SELECT * FROM tblfilms WHERE genre=?", (genre,))
+        films = dbCursor.fetchall()
+        dbCon.close()
+
+        return render_template('report_film_genre.html', films=films, genre=genre)
+    
+    return render_template('report_select_genre.html')
+
+
+@app.route('/year', methods=['GET', 'POST'])
+def report_select_year():
+    if request.method == 'POST':
+        year = year = int(request.form['year'])
+
+        dbCon, dbCursor = get_db_connection() # Using the get_db_connection() function set up above to connect to  DB
+        # Fetch the current details of the film using year
+        dbCursor.execute("SELECT * FROM tblfilms WHERE yearReleased=?", (year,))
+        films = dbCursor.fetchall()
+        dbCon.close()
+
+        return render_template('report_film_year.html', films=films, year=year)
+    
+    return render_template('report_select_year.html')
+
+@app.route('/rating', methods=['GET', 'POST'])
+def report_select_rating():
+    if request.method == 'POST':
+        rating = request.form['rating'].capitalize()
+
+        dbCon, dbCursor = get_db_connection() # Using the get_db_connection() function set up above to connect to  DB
+        # Fetch the current details of the film using rating
+        dbCursor.execute("SELECT * FROM tblfilms WHERE rating=?", (rating,))
+        films = dbCursor.fetchall()
+        dbCon.close()
+
+        return render_template('report_film_rating.html', films=films, rating=rating)
+    
+    return render_template('report_select_rating.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
